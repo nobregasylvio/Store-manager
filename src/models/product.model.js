@@ -4,7 +4,7 @@ const findAll = async () => {
   const [result] = await connection.execute(
     'SELECT * FROM passengers',
   );
-  return (result);
+  return result;
 };
 
 const findById = async (productId) => {

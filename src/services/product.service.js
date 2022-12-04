@@ -1,4 +1,4 @@
-const productModel = require('../models');
+const { productModel } = require('../models');
 
 const findAll = () => {
   const result = productModel.findAll();
