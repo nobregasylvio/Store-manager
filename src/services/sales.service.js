@@ -1,6 +1,15 @@
-const findAll = () => { };
+const { salesModel } = require('../models');
 
-const findById = () => { };
+const findAll = async () => {
+  const result = await salesModel.findAll();
+  return { type: null, message: result };
+};
+
+const findById = async (saleId) => {
+  const result = await salesModel.findById(saleId);
+  if (!result) return { type: 404, message: 'Sale not found' };
+  return { type: null, message: result };
+};
 
 module.exports = {
   findAll,
