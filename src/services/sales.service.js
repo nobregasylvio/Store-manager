@@ -16,12 +16,12 @@ const hasProduct = async (sales) => {
     sales.map(({ productId }) => productModel.findById(productId)),
   );
 
-  if (product.some((id) => id === undefined)) return { type: 404, message: 'Product not found' };
+  if (product.some((id) => id === undefined)) return { message: 'Product not found' };
 };
 
 const insert = async (sales) => {
   const resultProduct = await hasProduct(sales);
-  if (resultProduct) return resultProduct;
+  if (resultProduct) return { type: 404, message: resultProduct };
   const id = await salesModel.insertSale();
   await salesModel.insert(id, sales);
   return { type: 201, message: { id, itemsSold: sales } };
