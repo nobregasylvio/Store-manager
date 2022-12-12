@@ -23,7 +23,28 @@ const findById = async (saleId) => {
   return camelize(result);
 };
 
+const insertSale = async () => {
+  const [{ insertId }] = await connection.execute(
+    'INSERT INTO sales () VALUE ()',
+  );
+
+  return insertId;
+};
+
+const insert = async (id, sales) => {
+    await Promise.all(sales.map(async (sale) => {
+    await connection.execute(
+      'INSERT INTO StoreManager.sales_products (sale_id,product_id, quantity) VALUES (?, ?, ?)',
+      [id, sale.productId, sale.quantity],
+    );
+  }));
+
+  return id;
+};
+
 module.exports = {
   findAll,
   findById,
+  insertSale,
+  insert,
 };
