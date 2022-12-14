@@ -32,7 +32,6 @@ const update = async (id, sales) => {
   if (resultProduct) return { type: 404, message: resultProduct };
 
   const result = await salesModel.findById(id);
-  console.log(result);
   if (result.length === 0) return { type: 404, message: { message: 'Sale not found' } };
 
   await salesModel.update(id, sales);

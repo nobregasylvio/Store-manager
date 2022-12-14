@@ -41,10 +41,16 @@ const deleteProduct = async (id) => {
   );
 };
 
+const search = async () => {
+  const result = await findAll();
+  return result;
+};
+
 module.exports = {
   findAll,
   findById,
   insert,
   update,
   deleteProduct,
+  search,
 };
