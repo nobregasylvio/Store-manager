@@ -13,7 +13,6 @@ const salesValidation = (req, res, next) => {
     const { error } = salesSchema.validate({ productId, quantity });
     if (error !== undefined) message = error.details[0].message;
   });
-  console.log(message);
   if (message === '"quantity" must be greater than or equal to 1') {
     return res.status(422).json({ message });
   }

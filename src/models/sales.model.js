@@ -34,12 +34,21 @@ const insertSale = async () => {
 const insert = async (id, sales) => {
   await Promise.all(sales.map(async (sale) => {
     await connection.execute(
-      'INSERT INTO StoreManager.sales_products (sale_id,product_id, quantity) VALUES (?, ?, ?)',
+      'INSERT INTO sales_products (sale_id,product_id, quantity) VALUES (?, ?, ?)',
       [id, sale.productId, sale.quantity],
     );
   }));
 
   return id;
+};
+
+const update = async (id, sales) => {
+  await Promise.all(sales.map(async (sale) => {
+    await connection.execute(
+      'UPDATE sales_products SET quantity = ? WHERE product_id = ? AND sale_id = ?',
+      [sale.quantity, sale.productId, id],
+    );
+  }));
 };
 
 const deleteSale = async (id) => {
@@ -55,4 +64,5 @@ module.exports = {
   insertSale,
   insert,
   deleteSale,
+  update,
 };

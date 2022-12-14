@@ -27,6 +27,18 @@ const insert = async (sales) => {
   return { type: 201, message: { id, itemsSold: sales } };
 };
 
+const update = async (id, sales) => {
+  const resultProduct = await hasProduct(sales);
+  if (resultProduct) return { type: 404, message: resultProduct };
+
+  const result = await salesModel.findById(id);
+  console.log(result);
+  if (result.length === 0) return { type: 404, message: { message: 'Sale not found' } };
+
+  await salesModel.update(id, sales);
+  return { type: 200, message: { saleId: id, itemsUpdated: sales } };
+};
+
 const deleteSale = async (id) => {
   const result = await salesModel.findById(id);
   if (result.length === 0) return { type: 404, message: 'Sale not found' };
@@ -40,4 +52,5 @@ module.exports = {
   findById,
   insert,
   deleteSale,
+  update,
 };
